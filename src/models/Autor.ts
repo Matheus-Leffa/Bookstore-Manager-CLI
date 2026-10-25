@@ -6,7 +6,7 @@ export class Autor{
     private nacionalidade: string;
     private criado_em: Date;
 
-    private constructor(nome: string, nacionalidade: string){
+    public constructor(nome: string, nacionalidade: string){
         this.id = Autor.proximoId++;
         this.nome = nome;
         this.nacionalidade = nacionalidade;
