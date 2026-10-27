@@ -7,7 +7,7 @@ const autor2 = new Autor("JK Rowling", "Inglês");
 
 const autor3 = new Autor("GRR Martin", "Americano");
 
-const autorNovoNaPosicao1 = new Autor("Dosto", "Russo");
+const autorNovoNaPosicao1 = { nome: "Dosto", nacionalidade: "Russo" };
 
 const repository = new AutorRepositoryMemoria;
 
