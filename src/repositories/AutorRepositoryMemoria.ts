@@ -1,5 +1,5 @@
 import { Autor } from "../models/Autor";
-import { atualizarAutorDTO } from "../models/AtualizarAutorDto";
+import { AtualizarAutorDTO } from "../models/AtualizarAutorDto";
 import { AutorRepository } from "./AutorRepository";
 
 export class AutorRepositoryMemoria implements AutorRepository{
@@ -19,7 +19,7 @@ export class AutorRepositoryMemoria implements AutorRepository{
         return this.autores.find(autor => autor.getId() === id);
     }
 
-    atualizarAutor(id: number, autorAtualizado: atualizarAutorDTO): Autor | undefined {
+    atualizarAutor(id: number, autorAtualizado: AtualizarAutorDTO): Autor | undefined {
         const autor = this.buscarPeloId(id);
 
         if(autor === undefined){

@@ -1,4 +1,4 @@
-export interface atualizarAutorDTO{
+export interface AtualizarAutorDTO{
     nome: string;
     nacionalidade: string;
 }

@@ -1,6 +1,6 @@
 import { AutorRepository } from "../repositories/AutorRepository";
 import { Autor } from "../models/Autor";
-import { atualizarAutorDTO } from "../models/AtualizarAutorDto";
+import { AtualizarAutorDTO } from "../models/AtualizarAutorDto";
 import { AutorNotFoundError } from "../exceptions/AutorNotFoundError";
 import { AutorNameInvalid } from "../exceptions/AutorNameInvalid";
 
@@ -42,7 +42,7 @@ export class AutorService{
         return this.repository.listarAutores();
     }
 
-    public atualizarAutor(id: number, novosDados: atualizarAutorDTO) : Autor {
+    public atualizarAutor(id: number, novosDados: AtualizarAutorDTO) : Autor {
 
         const autorAtualizado = this.repository.atualizarAutor(id, novosDados);
 

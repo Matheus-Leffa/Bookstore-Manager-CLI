@@ -1,5 +1,5 @@
 import { Autor } from "../models/Autor";
-import { atualizarAutorDTO } from "../models/AtualizarAutorDto";
+import { AtualizarAutorDTO } from "../models/AtualizarAutorDto";
 
 export interface AutorRepository{
     cadastrarAutor(autor: Autor): Autor;
@@ -8,7 +8,7 @@ export interface AutorRepository{
 
     buscarPeloId(id: number): Autor | undefined;
 
-    atualizarAutor(id: number, autorAtualizado: atualizarAutorDTO): Autor | undefined;
+    atualizarAutor(id: number, autorAtualizado: AtualizarAutorDTO): Autor | undefined;
 
     removerAutorPeloId(id: number): Autor | undefined;
 }
