@@ -1,6 +1,8 @@
 import { AutorRepository } from "../repositories/AutorRepository";
 import { Autor } from "../models/Autor";
 import { atualizarAutorDTO } from "../models/AtualizarAutorDto";
+import { AutorNotFoundError } from "../exceptions/AutorNotFoundError";
+import { AutorNameInvalid } from "../exceptions/AutorNameInvalid";
 
 
 export class AutorService{
@@ -10,12 +12,12 @@ export class AutorService{
         this.repository = repository;
     }
 
-    public validarAutor(autor: Autor) : Autor{
+    private validarAutor(autor: Autor) : void{
         if(autor.getNome().trim() === ""){
-            throw new Error("Nome do autor é obrigatório");
+            throw new AutorNameInvalid();
         }
 
-        return autor;
+        return ;
     }
 
     public cadastrarAutor(autor: Autor): Autor {
@@ -30,7 +32,7 @@ export class AutorService{
         const autorEncontrado = this.repository.buscarPeloId(id);
 
         if(autorEncontrado === undefined){
-            throw new Error("Id não encontrado.");
+            throw new AutorNotFoundError(id);
         }
 
         return autorEncontrado;
@@ -42,16 +44,18 @@ export class AutorService{
 
     public atualizarAutor(id: number, novosDados: atualizarAutorDTO) : Autor {
 
-        if(novosDados.nome.trim() === ""){
-            throw new Error("Nome do autor é obrigatório");
-        }
-
         const autorAtualizado = this.repository.atualizarAutor(id, novosDados);
 
         if(autorAtualizado === undefined){
-            throw new Error("Id não encontrado.");
+            throw new AutorNotFoundError(id);
         }
 
+
+        if(novosDados.nome.trim() === ""){
+            throw new AutorNameInvalid();
+        }
+
+       
         return autorAtualizado;
     }
 
@@ -60,7 +64,7 @@ export class AutorService{
         const autorDeletado = this.repository.removerAutorPeloId(id);
 
         if(autorDeletado === undefined){
-            throw new Error("Id não encontrado.");
+            throw new AutorNotFoundError(id);
         }
         
         return autorDeletado;
