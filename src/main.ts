@@ -1,19 +1,14 @@
-import { Autor } from "./models/Autor";
+import { AutorController } from "./controllers/AutorController";
 import { AutorRepositoryMemoria } from "./repositories/AutorRepositoryMemoria";
+import { AutorService } from "./services/AutorService";
 
-const autor1 = new Autor("JRR Tolkien", "Inglês");
+const repository = new AutorRepositoryMemoria();
+const service = new AutorService(repository);
+const controller = new AutorController(service);
 
-const autor2 = new Autor("JK Rowling", "Inglês");
+const nome = "JRR Tolkien";
+const nacionalidade = "Inglês";
 
-const autor3 = new Autor("GRR Martin", "Americano");
+controller.cadastrarAutor(nome, nacionalidade);
 
-const autorNovoNaPosicao1 = { nome: "Dosto", nacionalidade: "Russo" };
-
-const repository = new AutorRepositoryMemoria;
-
-repository.cadastrarAutor(autor1);
-repository.cadastrarAutor(autor2);
-repository.cadastrarAutor(autor3);
-
-repository.atualizarAutor(1, autorNovoNaPosicao1);
-repository.removerAutorPeloId(2);
+console.log(controller.listarAutores());
