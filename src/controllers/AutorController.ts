@@ -9,25 +9,25 @@ export class AutorController{
         this.service = service;
     }
 
-    public cadastrarAutor(nome: string, nacionalidade: string): Autor{
+    public async cadastrarAutor(nome: string, nacionalidade: string): Promise<Autor> {
         const autor = new Autor(nome, nacionalidade);
 
-        return this.service.cadastrarAutor(autor);
+        return await this.service.cadastrarAutor(autor);
     }
 
-    public buscarAutorPeloId(id: number): Autor{
-        return this.service.buscarAutorPeloId(id);
+    public async buscarAutorPeloId(id: number): Promise<Autor> {
+        return await this.service.buscarAutorPeloId(id);
     }
 
-    public listarAutores(): Autor[]{
-        return this.service.listarAutores();
+    public async listarAutores(): Promise<Autor[]> {
+        return await this.service.listarAutores();
     }
 
-    public atualizarAutor(id: number, novosDados: AtualizarAutorDTO) : Autor{
-        return this.service.atualizarAutor(id, novosDados);
+    public async atualizarAutor(id: number, novosDados: AtualizarAutorDTO) : Promise<Autor> {
+        return await this.service.atualizarAutor(id, novosDados);
     }
 
-    public removerAutorPeloId(id: number) : Autor {
-        return this.service.removerAutorPeloId(id);
+    public async removerAutorPeloId(id: number) : Promise<Autor> {
+        return await this.service.removerAutorPeloId(id);
     }
 }

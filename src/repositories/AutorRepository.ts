@@ -2,13 +2,13 @@ import { Autor } from "../models/Autor";
 import { AtualizarAutorDTO } from "../models/AtualizarAutorDto";
 
 export interface AutorRepository{
-    cadastrarAutor(autor: Autor): Autor;
+    cadastrarAutor(autor: Autor): Promise<Autor>;
 
-    listarAutores(): Autor[];
+    listarAutores(): Promise<Autor[]>;
 
-    buscarPeloId(id: number): Autor | undefined;
+    buscarPeloId(id: number): Promise<Autor | undefined>;
 
-    atualizarAutor(id: number, autorAtualizado: AtualizarAutorDTO): Autor | undefined;
+    atualizarAutor(id: number, autorAtualizado: AtualizarAutorDTO): Promise<Autor | undefined>;
 
-    removerAutorPeloId(id: number): Autor | undefined;
+    removerAutorPeloId(id: number): Promise<Autor | undefined>;
 }

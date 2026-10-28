@@ -6,21 +6,22 @@ export class AutorRepositoryMemoria implements AutorRepository{
 
     private autores: Autor[] = [];
 
-    cadastrarAutor(autor: Autor): Autor {
+    async cadastrarAutor(autor: Autor): Promise<Autor> {
         this.autores.push(autor);
     
         return autor;
     }
-    listarAutores(): Autor[] {
+
+    async listarAutores(): Promise<Autor[]> {
         return this.autores;
     }
 
-    buscarPeloId(id: number): Autor | undefined{
+    async buscarPeloId(id: number): Promise<Autor | undefined> {
         return this.autores.find(autor => autor.getId() === id);
     }
 
-    atualizarAutor(id: number, autorAtualizado: AtualizarAutorDTO): Autor | undefined {
-        const autor = this.buscarPeloId(id);
+    async atualizarAutor(id: number, autorAtualizado: AtualizarAutorDTO): Promise<Autor | undefined> {
+        const autor = await this.buscarPeloId(id);
 
         if(autor === undefined){
             return undefined;
@@ -32,7 +33,7 @@ export class AutorRepositoryMemoria implements AutorRepository{
         return autor;
     }
 
-    removerAutorPeloId(id: number): Autor | undefined {
+    async removerAutorPeloId(id: number): Promise <Autor | undefined> {
         const index = this.autores.findIndex(autor => autor.getId() === id);
 
         if(index === -1){

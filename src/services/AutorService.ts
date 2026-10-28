@@ -12,7 +12,8 @@ export class AutorService{
         this.repository = repository;
     }
 
-    private validarAutor(autor: Autor) : void{
+    //classe interna para não ficar repetindo código. Por isso não usei async.
+    private validarAutor(autor: Autor) : void{ 
         if(autor.getNome().trim() === ""){
             throw new AutorNameInvalid();
         }
@@ -20,16 +21,16 @@ export class AutorService{
         return ;
     }
 
-    public cadastrarAutor(autor: Autor): Autor {
+    public async cadastrarAutor(autor: Autor): Promise<Autor> {
 
         this.validarAutor(autor);
 
-        return this.repository.cadastrarAutor(autor);
+        return await this.repository.cadastrarAutor(autor);
     }
 
-    public buscarAutorPeloId(id: number) : Autor {
+    public async buscarAutorPeloId(id: number) : Promise<Autor> {
 
-        const autorEncontrado = this.repository.buscarPeloId(id);
+        const autorEncontrado = await this.repository.buscarPeloId(id);
 
         if(autorEncontrado === undefined){
             throw new AutorNotFoundError(id);
@@ -38,13 +39,13 @@ export class AutorService{
         return autorEncontrado;
     }
 
-    public listarAutores() : Autor[]{
-        return this.repository.listarAutores();
+    public async listarAutores() : Promise<Autor[]> {
+        return await this.repository.listarAutores();
     }
 
-    public atualizarAutor(id: number, novosDados: AtualizarAutorDTO) : Autor {
+    public async atualizarAutor(id: number, novosDados: AtualizarAutorDTO) : Promise<Autor> {
 
-        const autorAtualizado = this.repository.atualizarAutor(id, novosDados);
+        const autorAtualizado = await this.repository.atualizarAutor(id, novosDados);
 
         if(autorAtualizado === undefined){
             throw new AutorNotFoundError(id);
@@ -54,14 +55,13 @@ export class AutorService{
         if(novosDados.nome.trim() === ""){
             throw new AutorNameInvalid();
         }
-
        
         return autorAtualizado;
     }
 
-    public removerAutorPeloId(id: number) : Autor{
+    public async removerAutorPeloId(id: number) : Promise<Autor> {
 
-        const autorDeletado = this.repository.removerAutorPeloId(id);
+        const autorDeletado = await this.repository.removerAutorPeloId(id);
 
         if(autorDeletado === undefined){
             throw new AutorNotFoundError(id);
@@ -69,5 +69,4 @@ export class AutorService{
         
         return autorDeletado;
     }
-
 }
