@@ -36,4 +36,12 @@ export class Livro{
     public setIsbn(nacionalidade: string) : void {
         this.isbn = nacionalidade;
     }
+
+    public getAutor() : Autor{
+        return this.autor;
+    }
+
+    public setAutor(autor : Autor): void {
+        this.autor = autor;
+    }
 }
