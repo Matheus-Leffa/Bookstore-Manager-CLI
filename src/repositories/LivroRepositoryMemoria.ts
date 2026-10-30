@@ -47,5 +47,11 @@ export class LivroRepositoryMemoria implements LivroRepository{
     }
 
    
-    
+    async buscarPeloIsbn(isbn: string): Promise<Livro | undefined>{
+        return this.livros.find(livro => livro.getIsbn() === isbn);
+    }
+
+    async buscarPeloNome(nome: string): Promise<Livro | undefined>{
+        return this.livros.find(livro => livro.getNome() === nome);
+    }
 }

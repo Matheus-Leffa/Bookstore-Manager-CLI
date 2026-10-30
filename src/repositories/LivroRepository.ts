@@ -11,4 +11,8 @@ export interface LivroRepository{
     atualizarLivro(id: number, livroAtualizado: AtualizarLivroDTO): Promise<Livro | undefined>;
 
     removerLivroPeloId(id: number): Promise<Livro | undefined>;
+
+    buscarPeloIsbn(isbn: string): Promise<Livro | undefined>
+
+    buscarPeloNome(nome: string): Promise<Livro | undefined>
 }
