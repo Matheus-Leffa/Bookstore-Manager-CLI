@@ -6,13 +6,13 @@ export class ClienteRepositoryMemoria implements ClienteRepository{
 
     private clientes: Cliente[] = [];
 
-    async cadastrarLivro(cliente: Cliente): Promise<Cliente> {
+    async cadastrarCliente(cliente: Cliente): Promise<Cliente> {
         this.clientes.push(cliente);
 
         return cliente;
     }
 
-    async listarLivros(): Promise<Cliente[]> {
+    async listarClientes(): Promise<Cliente[]> {
         return this.clientes;
     }
 
@@ -20,7 +20,7 @@ export class ClienteRepositoryMemoria implements ClienteRepository{
         return this.clientes.find(cliente => cliente.getId() === id);
     }
 
-    async atualizarLivro(id: number, clienteAtualizado: AtualizarClienteDTO): Promise<Cliente | undefined> {
+    async atualizarCliente(id: number, clienteAtualizado: AtualizarClienteDTO): Promise<Cliente | undefined> {
         const cliente = await this.buscarPeloId(id);
 
         if(cliente === undefined){
@@ -34,7 +34,7 @@ export class ClienteRepositoryMemoria implements ClienteRepository{
         return cliente;
     }
 
-    async removerLivroPeloId(id: number): Promise<Cliente | undefined> {
+    async removerClientePeloId(id: number): Promise<Cliente | undefined> {
         const index = this.clientes.findIndex(cliente => cliente.getId() === id);
 
         if(index === -1){
