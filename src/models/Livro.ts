@@ -8,6 +8,7 @@ export class Livro{
     private isbn: string;
     private criado_em: Date;
     private autor: Autor;
+    private esta_Disponivel: boolean;
 
     public constructor(nome: string, isbn: string, autor: Autor){
         this.id = Livro.proximoId++;
@@ -15,6 +16,7 @@ export class Livro{
         this.isbn = isbn;
         this.criado_em = new Date();
         this.autor = autor;
+        this.esta_Disponivel = true;
     }
 
     public getId() : number{
@@ -43,5 +45,13 @@ export class Livro{
 
     public setAutor(autor : Autor): void {
         this.autor = autor;
+    }
+
+    public isDisponivel() : boolean{
+        return this.esta_Disponivel;
+    }
+
+    public setDisponivel() : void {
+        this.esta_Disponivel = !this.esta_Disponivel;
     }
 }
