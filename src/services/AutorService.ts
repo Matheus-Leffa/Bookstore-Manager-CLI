@@ -2,7 +2,7 @@ import { AutorRepository } from "../repositories/AutorRepository";
 import { Autor } from "../models/Autor";
 import { AtualizarAutorDTO } from "../models/AtualizarAutorDto";
 import { AutorNotFoundError } from "../exceptions/AutorNotFoundError";
-import { AutorNameInvalid } from "../exceptions/AutorNameInvalid";
+import { AutorNameInvalidError } from "../exceptions/AutorNameInvalidError";
 
 
 export class AutorService{
@@ -15,7 +15,7 @@ export class AutorService{
     //classe interna para não ficar repetindo código. Por isso não usei async.
     private validarAutor(autor: Autor) : void{ 
         if(autor.getNome().trim() === ""){
-            throw new AutorNameInvalid();
+            throw new AutorNameInvalidError();
         }
 
         return ;
@@ -53,7 +53,7 @@ export class AutorService{
 
 
         if(novosDados.nome.trim() === ""){
-            throw new AutorNameInvalid();
+            throw new AutorNameInvalidError();
         }
        
         return autorAtualizado;
