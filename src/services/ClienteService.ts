@@ -1,3 +1,8 @@
+import { ClienteCpfAlreadyExistsError } from "../exceptions/ClienteCpfAlreadyExistsError";
+import { ClienteCpfInvalidError } from "../exceptions/ClienteCpfInvalidError";
+import { ClienteNameInvalidError } from "../exceptions/ClienteNameInvalidError";
+import { ClienteNotFoundError } from "../exceptions/ClienteNotFoundError";
+import { ClienteTelefoneInvalidError } from "../exceptions/ClienteTelefoneIsInvalid";
 import { AtualizarClienteDTO } from "../models/AtualizarClienteDto";
 import { Cliente } from "../models/Clientes";
 import { ClienteRepository } from "../repositories/ClienteRepository";
@@ -11,15 +16,15 @@ export class ClienteService{
 
     private validarDadosCliente(cliente: Cliente): void {
         if(cliente.getNome().trim() === ""){
-            throw new Error() //ERRO DE NOME INVALIDO
+            throw new ClienteNameInvalidError();
         }
 
         if (!/^\d{11}$/.test(cliente.getCpf().trim())) {
-            throw new Error() //ERRO DE CPF INVÁLIDO
+            throw new ClienteCpfInvalidError();
         }
 
         if (!/^\d{11}$/.test(cliente.getTelefone().trim())) {
-            throw new Error() //ERRO DE TELEFONE INVÁLIDO
+            throw new ClienteTelefoneInvalidError();
         }
     }
 
@@ -27,13 +32,13 @@ export class ClienteService{
             const clienteComMesmoCpf = await this.repository.buscarPeloCpf(cpf);
     
             if (clienteComMesmoCpf !== undefined && clienteComMesmoCpf.getId() !== idClienteAtual) {
-                throw new Error(); // ERRO DE CPF REPETIDO.
+                throw new ClienteCpfAlreadyExistsError();
             }
            
             const clienteComMesmoTelefone = await this.repository.buscarPeloTelefone(telefone);
     
             if (clienteComMesmoTelefone !== undefined && clienteComMesmoTelefone.getId() !== idClienteAtual) {
-                throw new Error();// ERRO DE TELEFONE REPETIDO.
+                throw new ClienteTelefoneInvalidError();
             }
     }
 
@@ -63,19 +68,19 @@ export class ClienteService{
             const clienteExistente = await this.repository.buscarPeloId(id);
     
             if (clienteExistente === undefined) {
-                throw new Error(); // CLIENTE NOT FOUND ERROR
+                throw new ClienteNotFoundError(id);
             }
 
             if (novosDados.nome.trim() === "") {
-                throw new Error();// NOME INVÁLIDO
+                throw new ClienteNameInvalidError();
             }
     
             if (!/^\d{11}$/.test(novosDados.cpf.trim())) {
-                throw new Error();// CPF INVÁLIDO
+                throw new ClienteCpfInvalidError();
             }
     
             if (!/^\d{11}$/.test(novosDados.telefone.trim())) {
-                throw new Error() //ERRO DE TELEFONE INVÁLIDO
+                throw new ClienteTelefoneInvalidError();
             }
 
             const nome = novosDados.nome.trim().toLowerCase();
@@ -91,7 +96,7 @@ export class ClienteService{
             });
     
             if(clienteAtualizado === undefined){
-                throw new Error(); // CLIENTE NÃO ENCONTRADO.
+                throw new ClienteNotFoundError(id);
             }
     
             return clienteAtualizado;
@@ -101,7 +106,7 @@ export class ClienteService{
             const clienteDeletado = await this.repository.removerClientePeloId(id);
         
             if(clienteDeletado === undefined){
-                    throw new Error(); // CLIENTE NAO ENCONTRADO ERRO
+                    throw new ClienteNotFoundError(id);
             }
         
             return clienteDeletado;
