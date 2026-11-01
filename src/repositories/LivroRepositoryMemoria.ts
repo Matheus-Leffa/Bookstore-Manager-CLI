@@ -46,6 +46,17 @@ export class LivroRepositoryMemoria implements LivroRepository{
         return livroRemovido[0];
     }
 
+    async atualizarDisponibilidade(id: number, disponivel: boolean): Promise<Livro | undefined> {
+        const livro = await this.buscarPeloId(id);
+
+        if (livro === undefined) {
+            return undefined;
+        }
+
+        livro.definirDisponibilidade(disponivel);
+        return livro;
+    }
+
    
     async buscarPeloIsbn(isbn: string): Promise<Livro | undefined>{
         return this.livros.find(livro => livro.getIsbn().trim() === isbn.trim());

@@ -54,4 +54,8 @@ export class Livro{
     public setDisponivel() : void {
         this.esta_Disponivel = !this.esta_Disponivel;
     }
+
+    public definirDisponibilidade(disponivel: boolean) : void {
+        this.esta_Disponivel = disponivel;
+    }
 }

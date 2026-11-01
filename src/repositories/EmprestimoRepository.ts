@@ -9,4 +9,6 @@ export interface EmprestimoRepository{
 
     consultarEmprestimoPeloId(idEmprestimo: number) : Promise<Emprestimo | undefined>;
 
+    listarEmprestimos() : Promise<Emprestimo[]>;
+
 }

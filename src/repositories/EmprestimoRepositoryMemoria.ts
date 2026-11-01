@@ -27,6 +27,9 @@ export class EmprestimoRepositoryMemoria implements EmprestimoRepository{
         return this.emprestimos.find(emprestimo => emprestimo.getId() === idEmprestimo);
     }
 
-    
+    async listarEmprestimos(): Promise<Emprestimo[]> {
+        return this.emprestimos;
+    }
+
     
 }

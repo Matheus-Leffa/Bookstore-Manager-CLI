@@ -24,12 +24,20 @@ export class Emprestimo{
         return this.id;
     }
 
+    public getDataEmprestimo() : Date {
+        return this.data_emprestimo;
+    }
+
     public getCliente() : Cliente{
         return this.cliente;
     }
 
     public getLivro() : Livro{
         return this.livro;
+    }
+
+    public estaAtivo() : boolean {
+        return this.data_devolucao_real === null;
     }
 
     public registrarDevolucao() : void {
