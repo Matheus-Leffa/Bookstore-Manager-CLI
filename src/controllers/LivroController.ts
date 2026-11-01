@@ -11,9 +11,8 @@ export class LivroController{
     }
 
     public async cadastrarLivro(nome: string, isbn: string, autor: Autor): Promise<Livro>{
-        const livro = new Livro(nome, isbn, autor);
 
-        return await this.service.cadastrarLivro(livro);
+        return await this.service.cadastrarLivro(nome, isbn, autor);
     }
 
     public async buscarLivroPeloId(id: number) : Promise<Livro> {

@@ -14,16 +14,16 @@ export class ClienteService{
         this.repository = repository;
     }
 
-    private validarDadosCliente(cliente: Cliente): void {
-        if(cliente.getNome().trim() === ""){
+    private validarDadosCliente(nome: string, cpf: string, telefone: string): void {
+        if(nome.trim() === ""){
             throw new ClienteNameInvalidError();
         }
 
-        if (!/^\d{11}$/.test(cliente.getCpf().trim())) {
+        if (!/^\d{11}$/.test(cpf.trim())) {
             throw new ClienteCpfInvalidError();
         }
 
-        if (!/^\d{11}$/.test(cliente.getTelefone().trim())) {
+        if (!/^\d{11}$/.test(telefone.trim())) {
             throw new ClienteTelefoneInvalidError();
         }
     }
@@ -42,19 +42,16 @@ export class ClienteService{
             }
     }
 
-    public async cadastrarCliente(cliente: Cliente) : Promise<Cliente> {
+    public async cadastrarCliente(nome: string, cpf: string, telefone: string) : Promise<Cliente> {
     
-        this.validarDadosCliente(cliente);
+        this.validarDadosCliente(nome, cpf, telefone);
     
-        const nome = cliente.getNome().trim().toLowerCase();
-        const cpf = cliente.getCpf().trim();
-        const telefone = cliente.getTelefone();
+        const nomeFormatado = nome.trim().toLowerCase();
+        const cpfFormatado = cpf.trim();
     
         await this.validarCpfETelefoneRepetidos(cpf, telefone);
     
-        cliente.setNome(nome);
-        cliente.setCpf(cpf);
-        cliente.setTelefone(telefone);
+        const cliente = new Cliente(nomeFormatado, cpfFormatado, telefone)
     
         return await this.repository.cadastrarCliente(cliente);
     }

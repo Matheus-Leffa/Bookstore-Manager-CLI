@@ -13,18 +13,20 @@ export class AutorService{
     }
 
     //classe interna para não ficar repetindo código. Por isso não usei async.
-    private validarAutor(autor: Autor) : void{ 
-        if(autor.getNome().trim() === ""){
+    private validarNome(nome: string) : void{ 
+        if(nome.trim() === ""){
             throw new AutorNameInvalidError();
         }
 
         return ;
     }
 
-    public async cadastrarAutor(autor: Autor): Promise<Autor> {
+    public async cadastrarAutor(nome: string, nacionalidade: string): Promise<Autor> {
+        
+        this.validarNome(nome);
 
-        this.validarAutor(autor);
-
+        const autor = new Autor(nome, nacionalidade);
+        
         return await this.repository.cadastrarAutor(autor);
     }
 

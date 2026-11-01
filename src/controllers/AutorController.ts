@@ -10,9 +10,8 @@ export class AutorController{
     }
 
     public async cadastrarAutor(nome: string, nacionalidade: string): Promise<Autor> {
-        const autor = new Autor(nome, nacionalidade);
 
-        return await this.service.cadastrarAutor(autor);
+        return await this.service.cadastrarAutor(nome, nacionalidade);
     }
 
     public async buscarAutorPeloId(id: number): Promise<Autor> {
