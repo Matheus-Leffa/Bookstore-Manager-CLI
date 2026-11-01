@@ -7,6 +7,7 @@ import { Livro } from "../models/Livro";
 import { ClienteRepository } from "../repositories/ClienteRepository";
 import { EmprestimoRepository } from "../repositories/EmprestimoRepository";
 import { LivroRepository } from "../repositories/LivroRepository";
+import { EmprestimoNotFoundError } from "../exceptions/EmprestimoNotFoundError";
 
 export class EmprestimoService{
     private emprestimoRepo: EmprestimoRepository;
@@ -55,7 +56,7 @@ export class EmprestimoService{
         const emprestimo = await this.emprestimoRepo.consultarEmprestimoPeloId(idEmprestimo);
 
         if (emprestimo === undefined) {
-            throw new Error(`Empréstimo ${idEmprestimo} não encontrado.`);
+            throw new EmprestimoNotFoundError(idEmprestimo);
         }
 
         if (!emprestimo.estaAtivo()) {
@@ -77,5 +78,15 @@ export class EmprestimoService{
 
     public async listarEmprestimos(): Promise<Emprestimo[]> {
         return await this.emprestimoRepo.listarEmprestimos();
+    }
+
+    public async buscarEmprestimoPeloId(id: number) : Promise<Emprestimo> {
+        const emprestimo = await this.emprestimoRepo.consultarEmprestimoPeloId(id);
+
+        if (emprestimo === undefined) {
+            throw new EmprestimoNotFoundError(id);
+        }
+
+        return emprestimo;
     }
 }
