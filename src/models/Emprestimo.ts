@@ -20,11 +20,23 @@ export class Emprestimo{
         this.livro = livro;
     }
 
+    public getId() : number {
+        return this.id;
+    }
+
     public getCliente() : Cliente{
         return this.cliente;
     }
 
     public getLivro() : Livro{
         return this.livro;
+    }
+
+    public registrarDevolucao() : void {
+        if(this.data_devolucao_real !== null){
+            throw new Error("Este empréstimo já foi devolvido.");
+        }
+
+        this.data_devolucao_real = new Date();
     }
 }
