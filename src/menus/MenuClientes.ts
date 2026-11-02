@@ -1,6 +1,6 @@
 import { Interface } from "node:readline/promises";
 import { ClienteController } from "../controllers/ClienteController";
-import { exibirErro, lerNumero } from "../utils/MenuUtil";
+import { exibirErro, formatarData, lerNumero } from "../utils/MenuUtil";
 
 export class MenuClientes {
     public constructor(
@@ -56,7 +56,7 @@ export class MenuClientes {
             console.log("Nenhum cliente cadastrado.");
             return;
         }
-        clientes.forEach((cliente) => console.log(`${cliente.getId()} - ${cliente.getNome()} | CPF: ${cliente.getCpf()} | Telefone: ${cliente.getTelefone()}`));
+        clientes.forEach((cliente) => console.log(`${cliente.getId()} - ${cliente.getNome()} | CPF: ${cliente.getCpf()} | Telefone: ${cliente.getTelefone()} | Criado em: ${formatarData(cliente.getCriadoEm())}`));
     }
 
     private async atualizar(): Promise<void> {

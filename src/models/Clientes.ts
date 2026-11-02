@@ -19,6 +19,10 @@ export class Cliente{
         return this.id;
     }
 
+    public getCriadoEm(): Date {
+        return this.criado_em;
+    }
+
     public getNome() : string{
         return this.nome;
     }

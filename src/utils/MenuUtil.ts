@@ -15,3 +15,7 @@ export async function lerNumero(entrada: Interface, mensagem: string): Promise<n
 export function exibirErro(erro: unknown): void {
     console.error(erro instanceof Error ? erro.message : "Não foi possível concluir a operação.");
 }
+
+export function formatarData(data: Date | null): string {
+    return data === null ? "não devolvido" : data.toLocaleString("pt-BR");
+}

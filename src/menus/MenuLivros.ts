@@ -2,7 +2,7 @@ import { Interface } from "node:readline/promises";
 import { AutorController } from "../controllers/AutorController";
 import { LivroController } from "../controllers/LivroController";
 import { Autor } from "../models/Autor";
-import { exibirErro, lerNumero } from "../utils/MenuUtil";
+import { exibirErro, formatarData, lerNumero } from "../utils/MenuUtil";
 
 export class MenuLivros {
     public constructor(
@@ -65,7 +65,7 @@ export class MenuLivros {
             console.log("Nenhum livro cadastrado.");
             return;
         }
-        livros.forEach((livro) => console.log(`${livro.getId()} - ${livro.getNome()} | ISBN: ${livro.getIsbn()} | Autor: ${livro.getAutor().getNome()} | ${livro.isDisponivel() ? "disponível" : "emprestado"}`));
+        livros.forEach((livro) => console.log(`${livro.getId()} - ${livro.getNome()} | ISBN: ${livro.getIsbn()} | Autor: ${livro.getAutor().getNome()} | ${livro.isDisponivel() ? "disponível" : "emprestado"} | Criado em: ${formatarData(livro.getCriadoEm())}`));
     }
 
     private async atualizar(): Promise<void> {

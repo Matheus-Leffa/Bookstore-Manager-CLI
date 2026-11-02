@@ -1,6 +1,6 @@
 import { Interface } from "node:readline/promises";
 import { AutorController } from "../controllers/AutorController";
-import { exibirErro, lerNumero } from "../utils/MenuUtil";
+import { exibirErro, formatarData, lerNumero } from "../utils/MenuUtil";
 
 export class MenuAutores {
     public constructor(
@@ -55,7 +55,7 @@ export class MenuAutores {
             console.log("Nenhum autor cadastrado.");
             return;
         }
-        autores.forEach((autor) => console.log(`${autor.getId()} - ${autor.getNome()} (${autor.getNacionalidade()})`));
+        autores.forEach((autor) => console.log(`${autor.getId()} - ${autor.getNome()} (${autor.getNacionalidade()}) | Criado em: ${formatarData(autor.getCriadoEm())}`));
     }
 
     private async atualizar(): Promise<void> {

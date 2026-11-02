@@ -28,6 +28,10 @@ export class Emprestimo{
         return this.data_emprestimo;
     }
 
+    public getDataDevolucaoReal(): Date | null {
+        return this.data_devolucao_real;
+    }
+
     public getCliente() : Cliente{
         return this.cliente;
     }

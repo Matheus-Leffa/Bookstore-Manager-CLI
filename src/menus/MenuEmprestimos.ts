@@ -2,7 +2,7 @@ import { Interface } from "node:readline/promises";
 import { ClienteController } from "../controllers/ClienteController";
 import { EmprestimoController } from "../controllers/EmprestimoController";
 import { LivroController } from "../controllers/LivroController";
-import { exibirErro, lerNumero } from "../utils/MenuUtil";
+import { exibirErro, formatarData, lerNumero } from "../utils/MenuUtil";
 
 export class MenuEmprestimos {
     public constructor(
@@ -51,7 +51,7 @@ export class MenuEmprestimos {
         const id = await lerNumero(this.entrada, "ID do empréstimo: ");
         if (id === undefined) return;
         const emprestimo = await this.controller.buscarEmprestimoPeloId(id);
-        console.log(`${emprestimo.getId()} - Cliente: ${emprestimo.getCliente().getNome()} | Livro: ${emprestimo.getLivro().getNome()} | ${emprestimo.estaAtivo() ? "ativo" : "devolvido"}`);
+        console.log(`${emprestimo.getId()} - Cliente: ${emprestimo.getCliente().getNome()} | Livro: ${emprestimo.getLivro().getNome()} | Criado em: ${formatarData(emprestimo.getDataEmprestimo())} | Devolvido em: ${formatarData(emprestimo.getDataDevolucaoReal())} | ${emprestimo.estaAtivo() ? "ativo" : "devolvido"}`);
     }
 
     private async listar(): Promise<void> {
@@ -60,7 +60,7 @@ export class MenuEmprestimos {
             console.log("Nenhum empréstimo cadastrado.");
             return;
         }
-        emprestimos.forEach((emprestimo) => console.log(`${emprestimo.getId()} - Cliente: ${emprestimo.getCliente().getNome()} | Livro: ${emprestimo.getLivro().getNome()} | ${emprestimo.estaAtivo() ? "ativo" : "devolvido"}`));
+        emprestimos.forEach((emprestimo) => console.log(`${emprestimo.getId()} - Cliente: ${emprestimo.getCliente().getNome()} | Livro: ${emprestimo.getLivro().getNome()} | Criado em: ${formatarData(emprestimo.getDataEmprestimo())} | Devolvido em: ${formatarData(emprestimo.getDataDevolucaoReal())} | ${emprestimo.estaAtivo() ? "ativo" : "devolvido"}`));
     }
 
     private async devolver(): Promise<void> {
