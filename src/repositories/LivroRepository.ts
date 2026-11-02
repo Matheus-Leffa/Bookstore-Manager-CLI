@@ -12,6 +12,8 @@ export interface LivroRepository{
 
     removerLivroPeloId(id: number): Promise<Livro | undefined>;
 
+    atualizarDisponibilidade(id: number, disponivel: boolean): Promise<Livro | undefined>;
+
     buscarPeloIsbn(isbn: string): Promise<Livro | undefined>
 
     buscarPeloNome(nome: string): Promise<Livro | undefined>

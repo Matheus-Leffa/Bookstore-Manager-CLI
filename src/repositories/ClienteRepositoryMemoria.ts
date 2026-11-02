@@ -1,4 +1,4 @@
-import { AtualizarClienteDTO } from "../models/AtualizarClienteDto";
+import { AtualizarClienteDTO } from "../models/AtualizarClienteDTO";
 import { Cliente } from "../models/Clientes";
 import { ClienteRepository } from "./ClienteRepository";
 

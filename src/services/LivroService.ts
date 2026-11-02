@@ -8,6 +8,7 @@ import { LivroIsbnInvalidError } from "../exceptions/LivroIsbnInvalidError";
 import { LivroIsbnAlreadyExistsError } from "../exceptions/LivroIsbnAlreadyExistsError";
 import { LivroNameAlreadyExistsError } from "../exceptions/LivroNameAlreadyExistsError";
 import { LivroNotFoundError } from "../exceptions/LivroNotFoundError";
+import { Autor } from "../models/Autor";
 
 export class LivroService{
     private repository: LivroRepository;
@@ -18,12 +19,12 @@ export class LivroService{
         this.autorRepository = autorRepository;
     }
 
-    private validarDadosLivro(livro: Livro): void {
-        if (livro.getNome().trim() === "") {
+    private validarDadosLivro(nome: string, isbn: string): void {
+        if (nome.trim() === "") {
             throw new LivroNameInvalidError();
         }
 
-        if (!/^\d{13}$/.test(livro.getIsbn().trim())) {
+        if (!/^\d{13}$/.test(isbn.trim())) {
             throw new LivroIsbnInvalidError();
         }
     }
@@ -42,24 +43,22 @@ export class LivroService{
         }
     }
     
-    public async cadastrarLivro(livro: Livro) : Promise<Livro> {
+    public async cadastrarLivro(nome: string, isbn: string, autor: Autor) : Promise<Livro> {
 
-        this.validarDadosLivro(livro);
+        this.validarDadosLivro(nome, isbn);
 
-        const isbn = livro.getIsbn().trim();
-        const nome = livro.getNome().trim().toLowerCase();
+        const isbnFormatado = isbn.trim();
+        const nomeFormatado = nome.trim().toLowerCase();
 
         await this.validarIsbnENomeRepetidos(isbn, nome);
 
-        const autorEncontrado = await this.autorRepository.buscarPeloId(livro.getAutor().getId());
+        const autorEncontrado = await this.autorRepository.buscarPeloId(autor.getId());
 
         if (autorEncontrado === undefined) {
-            throw new AutorNotFoundError(livro.getAutor().getId());
+            throw new AutorNotFoundError(autor.getId());
         }
 
-        livro.setNome(nome);
-        livro.setIsbn(isbn);
-        livro.setAutor(autorEncontrado);
+        const livro = new Livro(nomeFormatado, isbnFormatado, autor)
 
         return await this.repository.cadastrarLivro(livro);
     }

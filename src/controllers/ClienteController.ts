@@ -1,4 +1,4 @@
-import { AtualizarClienteDTO } from "../models/AtualizarClienteDto";
+import { AtualizarClienteDTO } from "../models/AtualizarClienteDTO";
 import { Cliente } from "../models/Clientes";
 import { ClienteService } from "../services/ClienteService";
 
@@ -11,9 +11,7 @@ export class ClienteController{
 
     public async cadastrarCliente(nome: string, cpf: string, telefone: string): Promise<Cliente>{
 
-        const cliente = new Cliente(nome, cpf, telefone);
-
-        return await this.service.cadastrarCliente(cliente);
+        return await this.service.cadastrarCliente(nome, cpf, telefone);
     }
 
     public async buscarclientePeloId(id: number) : Promise<Cliente> {
