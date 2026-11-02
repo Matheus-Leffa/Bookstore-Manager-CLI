@@ -13,6 +13,7 @@ import { AutorService } from "./services/AutorService";
 import { ClienteService } from "./services/ClienteService";
 import { EmprestimoService } from "./services/EmprestimoService";
 import { LivroService } from "./services/LivroService";
+import { seed } from "./data/seed";
 
 async function main(): Promise<void> {
     const autorRepository = new AutorRepositoryMemoria();
@@ -25,6 +26,12 @@ async function main(): Promise<void> {
     const clienteController = new ClienteController(new ClienteService(clienteRepository));
     const emprestimoController = new EmprestimoController(
         new EmprestimoService(emprestimoRepository, livroRepository, clienteRepository)
+    );
+    await seed(
+        autorRepository,
+        livroRepository,
+        clienteRepository,
+        emprestimoRepository
     );
     const entrada = createInterface({ input, output });
 
