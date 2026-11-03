@@ -430,3 +430,9 @@ Após a devolução, o empréstimo passa a ser exibido como devolvido, a data de
 O acompanhamento das atividades está disponível no Trello:
 
 [Bookstore Manager CLI — Kanban](https://trello.com/b/FLNnZ8Sz/bookstore-manager-cli)
+
+### Apresentação
+
+O link leva para uma pasta com o vídeo de apresentação do projeto:
+
+[Bookstore Manager CLI — Vídeo de apresentação] https://drive.google.com/file/d/11YR9Rh8C1DBF4WJ7_sjzCeZtSzgnXCBo/view?usp=sharing
